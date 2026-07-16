@@ -1,0 +1,48 @@
+============================= test session starts ==============================
+platform linux -- Python 3.9.25, pytest-7.4.4, pluggy-1.6.0
+rootdir: /tests
+plugins: timeout-2.4.0
+collected 2 items
+
+../tests/test_outputs.py F.                                              [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_fail_to_pass_tests_now_pass _______________________
+
+    def test_fail_to_pass_tests_now_pass() -> None:
+        """Tests that failed on the buggy base commit must pass after the fix."""
+        result = _run_pytest(FAIL_TO_PASS)
+>       assert result.returncode == 0, (
+            "FAIL_TO_PASS tests did not all pass.\n"
+            f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: FAIL_TO_PASS tests did not all pass.
+E         stdout:
+E         FF                                                                       [100%]
+E         =================================== FAILURES ===================================
+E         ___________________________ test_unknown_option_name ___________________________
+E         tests/config/test_config.py:70: in test_unknown_option_name
+E             assert "usage: pylint" in output.err
+E         E   AssertionError: assert 'usage: pylint' in ''
+E         E    +  where '' = CaptureResult(out='************* Module Command line\nCommand line:1:0: E0015: Unrecognized option found: unknown-option=yes (unrecognized-option)\n', err='').err
+E         ________________________ test_unknown_short_option_name ________________________
+E         tests/config/test_config.py:79: in test_unknown_short_option_name
+E             assert "usage: pylint" in output.err
+E         E   AssertionError: assert 'usage: pylint' in ''
+E         E    +  where '' = CaptureResult(out='************* Module Command line\nCommand line:1:0: E0015: Unrecognized option found: Q (unrecognized-option)\n', err='').err
+E         =========================== short test summary info ============================
+E         FAILED tests/config/test_config.py::test_unknown_option_name - AssertionError...
+E         FAILED tests/config/test_config.py::test_unknown_short_option_name - Assertio...
+E         2 failed in 0.10s
+E         
+E         stderr:
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/usr/local/bin/python', '-m', 'pytest', 'tests/config/test_config.py::test_unknown_option_name......\nFAILED tests/config/test_config.py::test_unknown_short_option_name - Assertio...\n2 failed in 0.10s\n', stderr='').returncode
+
+/tests/test_outputs.py:43: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_pass_to_pass_tests_still_pass
+FAILED ../tests/test_outputs.py::test_fail_to_pass_tests_now_pass - Assertion...
+========================= 1 failed, 1 passed in 2.05s ==========================

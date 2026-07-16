@@ -1,0 +1,1909 @@
+[?2004hroot@2c3883c96ad9:/app# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@2c3883c96ad9:/app# clear
+[?2004l[H[J[3J[?2004hroot@2c3883c96ad9:/app# ls -la
+[?2004ltotal 428
+drwxr-xr-x  1 root root   4096 Jul 16 15:19 .
+drwxr-xr-x  1 root root   4096 Jul 16 17:43 ..
+-rw-r--r--  1 root root    626 Jul 16 15:18 .coveragerc
+-rw-r--r--  1 root root    187 Jul 16 15:18 .flake8
+drwxr-xr-x  8 root root   4096 Jul 16 15:18 .git
+drwxr-xr-x  4 root root   4096 Jul 16 15:18 .github
+-rw-r--r--  1 root root    522 Jul 16 15:18 .gitignore
+-rw-r--r--  1 root root   3927 Jul 16 15:18 .pre-commit-config.yaml
+-rw-r--r--  1 root root    104 Jul 16 15:18 .pre-commit-hooks.yaml
+-rw-r--r--  1 root root   2937 Jul 16 15:18 .pyenchant_pylint_custom_dict.txt
+-rw-r--r--  1 root root    265 Jul 16 15:18 .readthedocs.yaml
+-rw-r--r--  1 root root   5228 Jul 16 15:18 CODE_OF_CONDUCT.md
+-rw-r--r--  1 root root  26243 Jul 16 15:18 CONTRIBUTORS.txt
+-rw-r--r--  1 root root 236845 Jul 16 15:18 ChangeLog
+-rw-r--r--  1 root root    141 Jul 16 15:18 Dockerfile
+-rw-r--r--  1 root root  17984 Jul 16 15:18 LICENSE
+-rw-r--r--  1 root root    234 Jul 16 15:18 MANIFEST.in
+-rw-r--r--  1 root root   6381 Jul 16 15:18 README.rst
+drwxr-xr-x 12 root root   4096 Jul 16 15:18 doc
+drwxr-xr-x  2 root root   4096 Jul 16 15:18 elisp
+drwxr-xr-x  2 root root   4096 Jul 16 15:18 examples
+drwxr-xr-x 11 root root   4096 Jul 16 15:18 pylint
+drwxr-xr-x  2 root root   4096 Jul 16 15:19 pylint.egg-info
+-rw-r--r--  1 root root  18253 Jul 16 15:18 pylintrc
+-rw-r--r--  1 root root    256 Jul 16 15:18 requirements_test.txt
+-rw-r--r--  1 root root    210 Jul 16 15:18 requirements_test_min.txt
+-rw-r--r--  1 root root    183 Jul 16 15:18 requirements_test_pre_commit.txt
+drwxr-xr-x  2 root root   4096 Jul 16 15:18 script
+-rw-r--r--  1 root root   4381 Jul 16 15:18 setup.cfg
+-rw-r--r--  1 root root     38 Jul 16 15:18 setup.py
+-rw-r--r--  1 root root   1644 Jul 16 15:18 tbump.toml
+drwxr-xr-x 18 root root   4096 Jul 16 15:18 tests
+-rw-r--r--  1 root root   2092 Jul 16 15:18 tox.ini
+[?2004hroot@2c3883c96ad9:/app# find . -name "*.py" | head -50
+[?2004l./pylint/config/callback_actions.py
+./pylint/config/config_file_parser.py
+./pylint/config/utils.py
+./pylint/config/arguments_provider.py
+./pylint/config/__init__.py
+./pylint/config/options_provider_mixin.py
+./pylint/config/exceptions.py
+./pylint/config/help_formatter.py
+./pylint/config/config_initialization.py
+./pylint/config/configuration_mixin.py
+./pylint/config/option.py
+./pylint/config/option_manager_mixin.py
+./pylint/config/arguments_manager.py
+./pylint/config/environment_variable.py
+./pylint/config/deprecation_actions.py
+./pylint/config/option_parser.py
+./pylint/config/argument.py
+./pylint/config/find_default_config_files.py
+./pylint/graph.py
+./pylint/lint/expand_modules.py
+./pylint/lint/utils.py
+./pylint/lint/__init__.py
+./pylint/lint/run.py
+./pylint/lint/report_functions.py
+./pylint/lint/parallel.py
+./pylint/lint/pylinter.py
+./pylint/lint/base_options.py
+./pylint/extensions/bad_builtin.py
+./pylint/extensions/__init__.py
+./pylint/extensions/set_membership.py
+./pylint/extensions/redefined_variable_type.py
+./pylint/extensions/docparams.py
+./pylint/extensions/code_style.py
+./pylint/extensions/private_import.py
+./pylint/extensions/confusing_elif.py
+./pylint/extensions/redefined_loop_name.py
+./pylint/extensions/typing.py
+./pylint/extensions/overlapping_exceptions.py
+./pylint/extensions/emptystring.py
+./pylint/extensions/empty_comment.py
+./pylint/extensions/mccabe.py
+./pylint/extensions/consider_ternary_expression.py
+./pylint/extensions/broad_try_clause.py
+./pylint/extensions/for_any_all.py
+./pylint/extensions/docstyle.py
+./pylint/extensions/comparetozero.py
+./pylint/extensions/while_used.py
+./pylint/extensions/comparison_placement.py
+./pylint/extensions/eq_without_hash.py
+./pylint/extensions/_check_docs_utils.py
+find: ‘standard output’: Broken pipe
+find: write error
+[?2004hroot@2c3883c96ad9:/app# cat pylint/config/config_initialization.py
+[?2004l# Licensed under the GPL: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+# For details: https://github.com/PyCQA/pylint/blob/main/LICENSE
+# Copyright (c) https://github.com/PyCQA/pylint/blob/main/CONTRIBUTORS.txt
+
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+from typing import TYPE_CHECKING
+
+from pylint import reporters
+from pylint.config.config_file_parser import _ConfigurationFileParser
+from pylint.config.exceptions import _UnrecognizedOptionError
+from pylint.utils import utils
+
+if TYPE_CHECKING:
+    from pylint.lint import PyLinter
+
+
+def _config_initialization(
+    linter: PyLinter,
+    args_list: list[str],
+    reporter: reporters.BaseReporter | reporters.MultiReporter | None = None,
+    config_file: None | str | Path = None,
+    verbose_mode: bool = False,
+) -> list[str]:
+    """Parse all available options, read config files and command line arguments and
+    set options accordingly.
+    """
+    config_file = Path(config_file) if config_file else None
+
+    # Set the current module to the configuration file
+    # to allow raising messages on the configuration file.
+    linter.set_current_module(str(config_file) if config_file else None)
+
+    # Read the configuration file
+    config_file_parser = _ConfigurationFileParser(verbose_mode, linter)
+    try:
+        config_data, config_args = config_file_parser.parse_config_file(
+            file_path=config_file
+        )
+    except OSError as ex:
+        print(ex, file=sys.stderr)
+        sys.exit(32)
+
+    # Run init hook, if present, before loading plugins
+    if "init-hook" in config_data:
+        exec(utils._unquote(config_data["init-hook"]))  # pylint: disable=exec-used
+
+    # Load plugins if specified in the config file
+    if "load-plugins" in config_data:
+        linter.load_plugin_modules(utils._splitstrip(config_data["load-plugins"]))
+
+    # First we parse any options from a configuration file
+    try:
+        linter._parse_configuration_file(config_args)
+    except _UnrecognizedOptionError as exc:
+        msg = ", ".join(exc.options)
+        linter.add_message("unrecognized-option", line=0, args=msg)
+
+    # Then, if a custom reporter is provided as argument, it may be overridden
+    # by file parameters, so we re-set it here. We do this before command line
+    # parsing, so it's still overridable by command line options
+    if reporter:
+        linter.set_reporter(reporter)
+
+    # Set the current module to the command line
+    # to allow raising messages on it
+    linter.set_current_module("Command line")
+
+    # Now we parse any options from the command line, so they can override
+    # the configuration file
+    parsed_args_list = linter._parse_command_line_configuration(args_list)
+
+    # Check if there are any options that we do not recognize
+    unrecognized_options: list[str] = []
+    for opt in parsed_args_list:
+        if opt.startswith("--"):
+            unrecognized_options.append(opt[2:])
+        elif opt.startswith("-"):
+            unrecognized_options.append(opt[1:])
+    if unrecognized_options:
+        msg = ", ".join(unrecognized_options)
+        linter.add_message("unrecognized-option", line=0, args=msg)
+        raise _UnrecognizedOptionError(options=unrecognized_options)
+
+    # Set the current module to configuration as we don't know where
+    # the --load-plugins key is coming from
+    linter.set_current_module("Command line or configuration file")
+
+    # We have loaded configuration from config file and command line. Now, we can
+    # load plugin specific configuration.
+    linter.load_plugin_configuration()
+
+    # parsed_args_list should now only be a list of files/directories to lint.
+    # All other options have been removed from the list.
+    if not parsed_args_list:
+        print(linter.help())
+        sys.exit(32)
+
+    # Now that plugins are loaded, get list of all fail_on messages, and enable them
+    linter.enable_fail_on_messages()
+
+    linter._parse_error_mode()
+
+    return parsed_args_list
+[?2004hroot@2c3883c96ad9:/app# cat pylint/config/exceptions.py
+[?2004l# Licensed under the GPL: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+# For details: https://github.com/PyCQA/pylint/blob/main/LICENSE
+# Copyright (c) https://github.com/PyCQA/pylint/blob/main/CONTRIBUTORS.txt
+
+from __future__ import annotations
+
+
+class UnrecognizedArgumentAction(Exception):
+    """Raised if an ArgumentManager instance tries to add an argument for which the action
+    is not recognized.
+    """
+
+
+class _UnrecognizedOptionError(Exception):
+    """Raised if an ArgumentManager instance tries to parse an option that is unknown."""
+
+    def __init__(self, options: list[str], *args: object) -> None:
+        self.options = options
+        super().__init__(*args)
+
+
+class ArgumentPreprocessingError(Exception):
+    """Raised if an error occurs during argument pre-processing."""
+[?2004hroot@2c3883c96ad9:/app# grep -r "unrecognized-option" tests/ --include="*.py" -l
+[?2004lgrep -r "_UnrecognizedOptionError" tests/ --include="*.py" -l
+[?2004hroot@2c3883c96ad9:/app# grep -r "_UnrecognizedOptionError" tests/ --include="*.py" -l
+[?2004ltests/config/test_config.py
+[?2004hroot@2c3883c96ad9:/app# cat tests/config/test_config.py
+[?2004l# Licensed under the GPL: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+# For details: https://github.com/PyCQA/pylint/blob/main/LICENSE
+# Copyright (c) https://github.com/PyCQA/pylint/blob/main/CONTRIBUTORS.txt
+
+from __future__ import annotations
+
+import os
+from pathlib import Path
+
+import pytest
+from pytest import CaptureFixture
+
+from pylint.config.exceptions import _UnrecognizedOptionError
+from pylint.lint import Run as LintRun
+from pylint.testutils._run import _Run as Run
+from pylint.testutils.configuration_test import run_using_a_configuration_file
+
+HERE = Path(__file__).parent.absolute()
+REGRTEST_DATA_DIR = HERE / ".." / "regrtest_data"
+EMPTY_MODULE = REGRTEST_DATA_DIR / "empty.py"
+
+
+def check_configuration_file_reader(
+    runner: LintRun,
+    expected_disabled: set[str] | None = None,
+    expected_jobs: int = 10,
+    expected_reports_truthey: bool = True,
+) -> None:
+    """Check that what we initialized the linter with what was expected."""
+    if expected_disabled is None:
+        # "logging-not-lazy" and "logging-format-interpolation"
+        expected_disabled = {"W1201", "W1202"}
+    for msgid in expected_disabled:
+        assert not runner.linter.is_message_enabled(msgid)
+    assert runner.linter.config.jobs == expected_jobs
+    assert bool(runner.linter.config.reports) == expected_reports_truthey
+
+
+def test_can_read_toml_env_variable(tmp_path: Path, file_to_lint_path: str) -> None:
+    """We can read and open a properly formatted toml file."""
+    config_file = tmp_path / "pyproject.toml"
+    config_file.write_text(
+        """
+[tool.pylint."messages control"]
+disable = "logging-not-lazy,logging-format-interpolation"
+jobs = "10"
+reports = "yes"
+"""
+    )
+    env_var = "tmp_path_env"
+    os.environ[env_var] = str(config_file)
+    mock_exit, _, runner = run_using_a_configuration_file(
+        f"${env_var}", file_to_lint_path
+    )
+    mock_exit.assert_called_once_with(0)
+    check_configuration_file_reader(runner)
+
+
+def test_unknown_message_id(capsys: CaptureFixture) -> None:
+    """Check that we correctly raise a message on an unknown id."""
+    Run([str(EMPTY_MODULE), "--disable=12345"], exit=False)
+    output = capsys.readouterr()
+    assert "Command line:1:0: E0012: Bad option value for --disable." in output.out
+
+
+def test_unknown_option_name(capsys: CaptureFixture) -> None:
+    """Check that we correctly raise a message on an unknown option."""
+    with pytest.raises(_UnrecognizedOptionError):
+        Run([str(EMPTY_MODULE), "--unknown-option=yes"], exit=False)
+    output = capsys.readouterr()
+    assert "E0015: Unrecognized option found: unknown-option=yes" in output.out
+
+
+def test_unknown_short_option_name(capsys: CaptureFixture) -> None:
+    """Check that we correctly raise a message on an unknown short option."""
+    with pytest.raises(_UnrecognizedOptionError):
+        Run([str(EMPTY_MODULE), "-Q"], exit=False)
+    output = capsys.readouterr()
+    assert "E0015: Unrecognized option found: Q" in output.out
+
+
+def test_unknown_confidence(capsys: CaptureFixture) -> None:
+    """Check that we correctly error an unknown confidence value."""
+    with pytest.raises(SystemExit):
+        Run([str(EMPTY_MODULE), "--confidence=UNKNOWN_CONFIG"], exit=False)
+    output = capsys.readouterr()
+    assert "argument --confidence: UNKNOWN_CONFIG should be in" in output.err
+
+
+def test_unknown_yes_no(capsys: CaptureFixture) -> None:
+    """Check that we correctly error on an unknown yes/no value."""
+    with pytest.raises(SystemExit):
+        Run([str(EMPTY_MODULE), "--reports=maybe"], exit=False)
+    output = capsys.readouterr()
+    assert "Invalid yn value 'maybe', should be in " in output.err
+
+
+def test_unknown_py_version(capsys: CaptureFixture) -> None:
+    """Check that we correctly error on an unknown python-version."""
+    with pytest.raises(SystemExit):
+        Run([str(EMPTY_MODULE), "--py-version=the-newest"], exit=False)
+    output = capsys.readouterr()
+    assert "the-newest has an invalid format, should be a version string." in output.err
+
+
+def test_short_verbose(capsys: CaptureFixture) -> None:
+    """Check that we correctly handle the -v flag."""
+    Run([str(EMPTY_MODULE), "-v"], exit=False)
+    output = capsys.readouterr()
+    assert "Using config file" in output.err
+[?2004hroot@2c3883c96ad9:/app# cat pylint/lint/run.py
+[?2004l# Licensed under the GPL: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+# For details: https://github.com/PyCQA/pylint/blob/main/LICENSE
+# Copyright (c) https://github.com/PyCQA/pylint/blob/main/CONTRIBUTORS.txt
+
+from __future__ import annotations
+
+import os
+import sys
+import warnings
+from collections.abc import Sequence
+from pathlib import Path
+from typing import Any
+
+from pylint import config
+from pylint.config.config_initialization import _config_initialization
+from pylint.config.exceptions import ArgumentPreprocessingError
+from pylint.config.utils import _preprocess_options
+from pylint.constants import full_version
+from pylint.lint.base_options import _make_run_options
+from pylint.lint.pylinter import PyLinter
+from pylint.reporters.base_reporter import BaseReporter
+
+try:
+    import multiprocessing
+    from multiprocessing import synchronize  # noqa pylint: disable=unused-import
+except ImportError:
+    multiprocessing = None  # type: ignore[assignment]
+
+
+def _query_cpu() -> int | None:
+    """Try to determine number of CPUs allotted in a docker container.
+
+    This is based on discussion and copied from suggestions in
+    https://bugs.python.org/issue36054.
+    """
+    cpu_quota, avail_cpu = None, None
+
+    if Path("/sys/fs/cgroup/cpu/cpu.cfs_quota_us").is_file():
+        with open("/sys/fs/cgroup/cpu/cpu.cfs_quota_us", encoding="utf-8") as file:
+            # Not useful for AWS Batch based jobs as result is -1, but works on local linux systems
+            cpu_quota = int(file.read().rstrip())
+
+    if (
+        cpu_quota
+        and cpu_quota != -1
+        and Path("/sys/fs/cgroup/cpu/cpu.cfs_period_us").is_file()
+    ):
+        with open("/sys/fs/cgroup/cpu/cpu.cfs_period_us", encoding="utf-8") as file:
+            cpu_period = int(file.read().rstrip())
+        # Divide quota by period and you should get num of allotted CPU to the container, rounded down if fractional.
+        avail_cpu = int(cpu_quota / cpu_period)
+    elif Path("/sys/fs/cgroup/cpu/cpu.shares").is_file():
+        with open("/sys/fs/cgroup/cpu/cpu.shares", encoding="utf-8") as file:
+            cpu_shares = int(file.read().rstrip())
+        # For AWS, gives correct value * 1024.
+        avail_cpu = int(cpu_shares / 1024)
+    return avail_cpu
+
+
+def _cpu_count() -> int:
+    """Use sched_affinity if available for virtualized or containerized environments."""
+    cpu_share = _query_cpu()
+    cpu_count = None
+    sched_getaffinity = getattr(os, "sched_getaffinity", None)
+    # pylint: disable=not-callable,using-constant-test,useless-suppression
+    if sched_getaffinity:
+        cpu_count = len(sched_getaffinity(0))
+    elif multiprocessing:
+        cpu_count = multiprocessing.cpu_count()
+    else:
+        cpu_count = 1
+    if cpu_share is not None:
+        return min(cpu_share, cpu_count)
+    return cpu_count
+
+
+UNUSED_PARAM_SENTINEL = object()
+
+
+class Run:
+    """Helper class to use as main for pylint with 'run(*sys.argv[1:])'."""
+
+    LinterClass = PyLinter
+    option_groups = (
+        (
+            "Commands",
+            "Options which are actually commands. Options in this \
+group are mutually exclusive.",
+        ),
+    )
+
+    def __init__(
+        self,
+        args: Sequence[str],
+        reporter: BaseReporter | None = None,
+        exit: bool = True,  # pylint: disable=redefined-builtin
+        do_exit: Any = UNUSED_PARAM_SENTINEL,
+    ) -> None:
+        # Immediately exit if user asks for version
+        if "--version" in args:
+            print(full_version)
+            sys.exit(0)
+
+        self._rcfile: str | None = None
+        self._output: str | None = None
+        self._plugins: list[str] = []
+        self.verbose: bool = False
+
+        # Pre-process certain options and remove them from args list
+        try:
+            args = _preprocess_options(self, args)
+        except ArgumentPreprocessingError as ex:
+            print(ex, file=sys.stderr)
+            sys.exit(32)
+
+        # Determine configuration file
+        if self._rcfile is None:
+            default_file = next(config.find_default_config_files(), None)
+            if default_file:
+                self._rcfile = str(default_file)
+
+        self.linter = linter = self.LinterClass(
+            _make_run_options(self),
+            option_groups=self.option_groups,
+            pylintrc=self._rcfile,
+        )
+        # register standard checkers
+        linter.load_default_plugins()
+        # load command line plugins
+        linter.load_plugin_modules(self._plugins)
+
+        linter.disable("I")
+        linter.enable("c-extension-no-member")
+
+        args = _config_initialization(
+            linter, args, reporter, config_file=self._rcfile, verbose_mode=self.verbose
+        )
+
+        if linter.config.jobs < 0:
+            print(
+                f"Jobs number ({linter.config.jobs}) should be greater than or equal to 0",
+                file=sys.stderr,
+            )
+            sys.exit(32)
+        if linter.config.jobs > 1 or linter.config.jobs == 0:
+            if multiprocessing is None:
+                print(
+                    "Multiprocessing library is missing, fallback to single process",
+                    file=sys.stderr,
+                )
+                linter.set_option("jobs", 1)
+            elif linter.config.jobs == 0:
+                linter.config.jobs = _cpu_count()
+
+        if self._output:
+            try:
+                with open(self._output, "w", encoding="utf-8") as output:
+                    linter.reporter.out = output
+                    linter.check(args)
+                    score_value = linter.generate_reports()
+            except OSError as ex:
+                print(ex, file=sys.stderr)
+                sys.exit(32)
+        else:
+            linter.check(args)
+            score_value = linter.generate_reports()
+
+        if do_exit is not UNUSED_PARAM_SENTINEL:
+            warnings.warn(
+                "do_exit is deprecated and it is going to be removed in a future version.",
+                DeprecationWarning,
+            )
+            exit = do_exit
+
+        if exit:
+            if linter.config.exit_zero:
+                sys.exit(0)
+            elif linter.any_fail_on_issues():
+                # We need to make sure we return a failing exit code in this case.
+                # So we use self.linter.msg_status if that is non-zero, otherwise we just return 1.
+                sys.exit(self.linter.msg_status or 1)
+            elif score_value is not None:
+                if score_value >= linter.config.fail_under:
+                    sys.exit(0)
+                else:
+                    # We need to make sure we return a failing exit code in this case.
+                    # So we use self.linter.msg_status if that is non-zero, otherwise we just return 1.
+                    sys.exit(self.linter.msg_status or 1)
+            else:
+                sys.exit(self.linter.msg_status)
+[?2004hroot@2c3883c96ad9:/app# cat pylint/testutils/_run.py
+[?2004l# Licensed under the GPL: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+# For details: https://github.com/PyCQA/pylint/blob/main/LICENSE
+# Copyright (c) https://github.com/PyCQA/pylint/blob/main/CONTRIBUTORS.txt
+
+"""Classes and functions used to mimic normal pylint runs.
+
+This module is considered private and can change at any time.
+"""
+
+from __future__ import annotations
+
+from collections.abc import Sequence
+from typing import Any
+
+from pylint.lint import Run as LintRun
+from pylint.lint.run import UNUSED_PARAM_SENTINEL
+from pylint.reporters.base_reporter import BaseReporter
+from pylint.testutils.lint_module_test import PYLINTRC
+
+
+def _add_rcfile_default_pylintrc(args: list[str]) -> list[str]:
+    """Add a default pylintrc with the rcfile option in a list of pylint args."""
+    if not any("--rcfile" in arg for arg in args):
+        args.insert(0, f"--rcfile={PYLINTRC}")
+    return args
+
+
+class _Run(LintRun):
+
+    """Like Run, but we're using an explicitly set empty pylintrc.
+
+    We don't want to use the project's pylintrc during tests, because
+    it means that a change in our config could break tests.
+    But we want to see if the changes to the default break tests.
+    """
+
+    def __init__(
+        self,
+        args: Sequence[str],
+        reporter: BaseReporter | None = None,
+        exit: bool = True,  # pylint: disable=redefined-builtin
+        do_exit: Any = UNUSED_PARAM_SENTINEL,
+    ) -> None:
+        args = _add_rcfile_default_pylintrc(list(args))
+        super().__init__(args, reporter, exit, do_exit)
+[?2004hroot@2c3883c96ad9:/app# git status
+[?2004lgit log --oneline -5
+[31mHEAD detached at [m0a4204fd7
+nothing to commit, working tree clean
+[?2004hroot@2c3883c96ad9:/app# git log --oneline -5
+[?2004l[33m0a4204fd7[m[33m ([m[1;36mHEAD[m[33m)[m Allow not yet published extensions links in ``linkcheck`` (#6499)
+[33m9b4cb5a8f[m Regression tests for setup.cfg's options using the wrong section failing silently (#6335)
+[33m52b889869[m Do not report useless-suppression on duplicate-code
+[33ma422b7f0f[m Change default values of ``ignore-imports`` and ``ignore-signatures`` (#6500)
+[33m647b05e96[m Move AstCallback (#6502)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[7m--More--[K(END)[27m[K
+...skipping 1 line
+[?2004hroot@2c3883c96ad9:/app# us 2>&1
+[?2004lbash: us: command not found
+[?2004hroot@2c3883c96ad9:/app# git log --oneline -5 2>&1
+[?2004l[33m0a4204fd7[m[33m ([m[1;36mHEAD[m[33m)[m Allow not yet published extensions links in ``linkcheck`` (#6499)
+[33m9b4cb5a8f[m Regression tests for setup.cfg's options using the wrong section failing silently (#6335)
+[33m52b889869[m Do not report useless-suppression on duplicate-code
+[33ma422b7f0f[m Change default values of ``ignore-imports`` and ``ignore-signatures`` (#6500)
+[33m647b05e96[m Move AstCallback (#6502)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[7m--More--[K(END)[27m[K
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[7m--More--[K(END)[27m[K
+...skipping 39 lines
+[?2004hroot@2c3883c96ad9:/app# g/arguments_manager.py
+[?2004lbash: g/arguments_manager.py: No such file or directory
+[?2004hroot@2c3883c96ad9:/app# grep -n "_parse_command_line_configuration" pylint/config/*.py
+[?2004lpylint/config/arguments_manager.py:252:    def _parse_command_line_configuration(
+pylint/config/config_initialization.py:73:    parsed_args_list = linter._parse_command_line_configuration(args_list)
+[?2004hroot@2c3883c96ad9:/app# sed -n '252,350p' pylint/config/arguments_manager.py
+[?2004l    def _parse_command_line_configuration(
+        self, arguments: Sequence[str] | None = None
+    ) -> list[str]:
+        """Parse the arguments found on the command line into the namespace."""
+        arguments = sys.argv[1:] if arguments is None else arguments
+
+        self.config, parsed_args = self._arg_parser.parse_known_args(
+            arguments, self.config
+        )
+
+        return parsed_args
+
+    def reset_parsers(self, usage: str = "") -> None:  # pragma: no cover
+        """DEPRECATED."""
+        warnings.warn(
+            "reset_parsers has been deprecated. Parsers should be instantiated "
+            "once during initialization and do not need to be reset.",
+            DeprecationWarning,
+        )
+        # configuration file parser
+        self.cfgfile_parser = configparser.ConfigParser(
+            inline_comment_prefixes=("#", ";")
+        )
+        # command line parser
+        self.cmdline_parser = OptionParser(Option, usage=usage)
+        self.cmdline_parser.options_manager = self  # type: ignore[attr-defined]
+        self._optik_option_attrs = set(self.cmdline_parser.option_class.ATTRS)
+
+    def register_options_provider(
+        self, provider: ConfigProvider, own_group: bool = True
+    ) -> None:  # pragma: no cover
+        """DEPRECATED: Register an options provider."""
+        warnings.warn(
+            "register_options_provider has been deprecated. Options providers and "
+            "arguments providers should be registered by initializing ArgumentsProvider. "
+            "This automatically registers the provider on the ArgumentsManager.",
+            DeprecationWarning,
+        )
+        self.options_providers.append(provider)
+        non_group_spec_options = [
+            option for option in provider.options if "group" not in option[1]
+        ]
+        groups = getattr(provider, "option_groups", ())
+        if own_group and non_group_spec_options:
+            with warnings.catch_warnings():
+                warnings.filterwarnings("ignore", category=DeprecationWarning)
+                self.add_option_group(
+                    provider.name.upper(),
+                    provider.__doc__,
+                    non_group_spec_options,
+                    provider,
+                )
+        else:
+            for opt, optdict in non_group_spec_options:
+                with warnings.catch_warnings():
+                    warnings.filterwarnings("ignore", category=DeprecationWarning)
+                    self.add_optik_option(provider, self.cmdline_parser, opt, optdict)
+        for gname, gdoc in groups:
+            gname = gname.upper()
+            goptions = [
+                option
+                for option in provider.options
+                if option[1].get("group", "").upper() == gname  # type: ignore[union-attr]
+            ]
+            with warnings.catch_warnings():
+                warnings.filterwarnings("ignore", category=DeprecationWarning)
+                self.add_option_group(gname, gdoc, goptions, provider)
+
+    def add_option_group(
+        self,
+        group_name: str,
+        _: str | None,
+        options: list[tuple[str, OptionDict]],
+        provider: ConfigProvider,
+    ) -> None:  # pragma: no cover
+        """DEPRECATED."""
+        warnings.warn(
+            "add_option_group has been deprecated. Option groups should be "
+            "registered by initializing ArgumentsProvider. "
+            "This automatically registers the group on the ArgumentsManager.",
+            DeprecationWarning,
+        )
+        # add option group to the command line parser
+        if group_name in self._mygroups:
+            group = self._mygroups[group_name]
+        else:
+            group = optparse.OptionGroup(
+                self.cmdline_parser, title=group_name.capitalize()
+            )
+            self.cmdline_parser.add_option_group(group)
+            self._mygroups[group_name] = group
+            # add section to the config file
+            if (
+                group_name != "DEFAULT"
+                and group_name not in self.cfgfile_parser._sections  # type: ignore[attr-defined]
+            ):
+                self.cfgfile_parser.add_section(group_name)
+        # add provider's specific options
+        for opt, optdict in options:
+[?2004hroot@2c3883c96ad9:/app# git diff HEAD
+[?2004l
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[7m--More--[K(END)[27m[K
+...skipping 1 line
+[?2004hroot@2c3883c96ad9:/app#  2>/dev/null | grep -i pylint
+[?2004l[?2004hroot@2c3883c96ad9:/app# cd /app && python -m pytest tests/config/test_config.py -v -k "unknown_option" 2>&1
+[?2004l[1m===================================================================== test session starts ======================================================================[0m
+platform linux -- Python 3.9.25, pytest-7.4.4, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /app
+configfile: setup.cfg
+plugins: timeout-2.4.0
+[1mcollecting ... [0m[1mcollected 8 items / 7 deselected / 1 selected                                                                                                                  [0m
+
+tests/config/test_config.py::test_unknown_option_name [32mPASSED[0m[32m                                                                                             [100%][0m
+
+[32m=============================================================== [32m[1m1 passed[0m, [33m7 deselected[0m[32m in 0.08s[0m[32m ================================================================[0m
+[?2004hroot@2c3883c96ad9:/app# python -m pytest tests/config/test_config.py -v -k "unknown" 2>&1
+[?2004l[1m===================================================================== test session starts ======================================================================[0m
+platform linux -- Python 3.9.25, pytest-7.4.4, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /app
+configfile: setup.cfg
+plugins: timeout-2.4.0
+[1mcollecting ... [0m[1mcollected 8 items / 2 deselected / 6 selected                                                                                                                  [0m
+
+tests/config/test_config.py::test_unknown_message_id [32mPASSED[0m[32m                                                                                              [ 16%][0m
+tests/config/test_config.py::test_unknown_option_name [32mPASSED[0m[32m                                                                                             [ 33%][0m
+tests/config/test_config.py::test_unknown_short_option_name [32mPASSED[0m[32m                                                                                       [ 50%][0m
+tests/config/test_config.py::test_unknown_confidence [32mPASSED[0m[32m                                                                                              [ 66%][0m
+tests/config/test_config.py::test_unknown_yes_no [32mPASSED[0m[32m                                                                                                  [ 83%][0m
+tests/config/test_config.py::test_unknown_py_version [32mPASSED[0m[32m                                                                                              [100%][0m
+
+[32m=============================================================== [32m[1m6 passed[0m, [33m2 deselected[0m[32m in 0.11s[0m[32m ================================================================[0m
+[?2004hroot@2c3883c96ad9:/app# grep -r "_UnrecognizedOptionError" tests/ --include="*.py"
+[?2004ltests/config/test_config.py:from pylint.config.exceptions import _UnrecognizedOptionError
+tests/config/test_config.py:    with pytest.raises(_UnrecognizedOptionError):
+tests/config/test_config.py:    with pytest.raises(_UnrecognizedOptionError):
+grep -r "unrecognized" tests/ --include="*.py"
+[?2004hroot@2c3883c96ad9:/app# grep -r "unrecognized" tests/ --include="*.py"
+[?2004ltests/config/test_argparse_config.py:    def test_unrecognized_argument() -> None:
+tests/config/test_argparse_config.py:        """Check that we correctly emit a warning for unrecognized argument types."""
+tests/config/test_argparse_config.py:            # We test with None as that is 'unrecognized'
+tests/functional/ext/docparams/yield/missing_yield_doc.py:# Ignore unrecognized style docstring
+tests/functional/u/unrecognized_inline_option.py:# +1: [unrecognized-inline-option]
+[?2004hroot@2c3883c96ad9:/app# cat tests/config/test_argparse_config.py
+[?2004l# Licensed under the GPL: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+# For details: https://github.com/PyCQA/pylint/blob/main/LICENSE
+# Copyright (c) https://github.com/PyCQA/pylint/blob/main/CONTRIBUTORS.txt
+
+"""Test for the (new) implementation of option parsing with argparse"""
+
+import re
+from os.path import abspath, dirname, join
+
+import pytest
+
+from pylint.config.arguments_manager import _ArgumentsManager
+from pylint.config.exceptions import UnrecognizedArgumentAction
+from pylint.testutils._run import _Run as Run
+
+HERE = abspath(dirname(__file__))
+REGRTEST_DATA_DIR = join(HERE, "..", "regrtest_data")
+EMPTY_MODULE = join(REGRTEST_DATA_DIR, "empty.py")
+LOGGING_TEST = join(HERE, "data", "logging_format_interpolation_style.py")
+
+
+class TestArgparseOptionsProviderMixin:
+    """Tests for the argparse implementation of OptionsProviderMixIn.
+
+    The logger checker is used as an example checker for this implementation.
+    """
+
+    @staticmethod
+    def test_logger_without_options() -> None:
+        """Check that we raise messages when we do not supply any options."""
+        with pytest.raises(SystemExit) as ex:
+            Run([LOGGING_TEST])
+        assert ex.value.code == 2
+
+    @staticmethod
+    def test_logger_commandline() -> None:
+        """Check that we parse command-line options for the logging checker correctly."""
+        with pytest.raises(SystemExit) as ex:
+            Run([LOGGING_TEST, "--logging-format-style=new"])
+        assert ex.value.code == 0
+
+    @staticmethod
+    def test_logger_rcfile() -> None:
+        """Check that we parse the rcfile for the logging checker correctly."""
+        with pytest.raises(SystemExit) as ex:
+            Run([LOGGING_TEST, f"--rcfile={LOGGING_TEST.replace('.py', '.rc')}"])
+        assert ex.value.code == 0
+
+
+class TestDeprecationOptions:
+    @staticmethod
+    def test_new_names() -> None:
+        """Check that we correctly emit DeprecationWarnings for deprecated options."""
+        with pytest.raises(SystemExit) as ex:
+            with pytest.warns(DeprecationWarning) as records:
+                Run([EMPTY_MODULE, "--ignore-mixin-members=yes"])
+            assert len(records) == 1
+            assert "--ignore-mixin-members has been deprecated" in records[0]
+        assert ex.value.code == 0
+
+    @staticmethod
+    def test_old_names() -> None:
+        """Check that we correctly double assign old name options."""
+        run = Run([EMPTY_MODULE, "--ignore=test,test_two"], exit=False)
+        assert run.linter.config.ignore == ["test", "test_two"]
+        assert run.linter.config.ignore == run.linter.config.black_list
+        assert run.linter.config.ignore_patterns == (re.compile("^\\.#"),)
+        assert run.linter.config.ignore_patterns == run.linter.config.black_list_re
+
+
+class TestArguments:
+    @staticmethod
+    def test_unrecognized_argument() -> None:
+        """Check that we correctly emit a warning for unrecognized argument types."""
+        manager = _ArgumentsManager(prog="test")
+        group = manager._arg_parser.add_argument_group(title="test")
+        with pytest.raises(UnrecognizedArgumentAction):
+            # We test with None as that is 'unrecognized'
+            manager._add_parser_option(group, None)  # type: ignore[arg-type]
+[?2004hroot@2c3883c96ad9:/app# grep -r "unrecognized-option" pylint/ --include="*.py"
+[?2004lpylint/config/config_initialization.py:        linter.add_message("unrecognized-option", line=0, args=msg)
+pylint/config/config_initialization.py:        linter.add_message("unrecognized-option", line=0, args=msg)
+pylint/lint/pylinter.py:        "unrecognized-option",
+[?2004hroot@2c3883c96ad9:/app# grep -r "_UnrecognizedOptionError" pylint/ --include="*.py"
+[?2004lpylint/config/exceptions.py:class _UnrecognizedOptionError(Exception):
+pylint/config/config_initialization.py:from pylint.config.exceptions import _UnrecognizedOptionError
+pylint/config/config_initialization.py:    except _UnrecognizedOptionError as exc:
+pylint/config/config_initialization.py:        raise _UnrecognizedOptionError(options=unrecognized_options)
+pylint/config/arguments_manager.py:    _UnrecognizedOptionError,
+pylint/config/arguments_manager.py:            raise _UnrecognizedOptionError(options=unrecognized_options)
+[?2004hroot@2c3883c96ad9:/app# grep -n "_UnrecognizedOptionError" pylint/config/arguments_manager.py
+[?2004l37:    _UnrecognizedOptionError,
+250:            raise _UnrecognizedOptionError(options=unrecognized_options)
+[?2004hroot@2c3883c96ad9:/app# sed -n '1,50p' pylint/config/arguments_manager.py
+[?2004l# Licensed under the GPL: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+# For details: https://github.com/PyCQA/pylint/blob/main/LICENSE
+# Copyright (c) https://github.com/PyCQA/pylint/blob/main/CONTRIBUTORS.txt
+
+"""Arguments manager class used to handle command-line arguments and options."""
+
+from __future__ import annotations
+
+import argparse
+import configparser
+import copy
+import optparse  # pylint: disable=deprecated-module
+import os
+import re
+import sys
+import textwrap
+import warnings
+from collections import OrderedDict
+from collections.abc import Sequence
+from pathlib import Path
+from typing import TYPE_CHECKING, Any, TextIO, Union
+
+import tomlkit
+
+from pylint import utils
+from pylint.config.argument import (
+    _Argument,
+    _CallableArgument,
+    _ExtendArgument,
+    _StoreArgument,
+    _StoreNewNamesArgument,
+    _StoreOldNamesArgument,
+    _StoreTrueArgument,
+)
+from pylint.config.exceptions import (
+    UnrecognizedArgumentAction,
+    _UnrecognizedOptionError,
+)
+from pylint.config.help_formatter import _HelpFormatter
+from pylint.config.option import Option
+from pylint.config.option_parser import OptionParser
+from pylint.config.options_provider_mixin import OptionsProviderMixIn
+from pylint.config.utils import _convert_option_to_argument, _parse_rich_type_value
+from pylint.constants import MAIN_CHECKER_NAME
+from pylint.typing import OptionDict
+
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
+[?2004hroot@2c3883c96ad9:/app# sed -n '230,260p' pylint/config/arguments_manager.py
+[?2004l                choices=argument.choices,
+                dest=argument.dest,
+            )
+        else:
+            raise UnrecognizedArgumentAction
+
+    def _load_default_argument_values(self) -> None:
+        """Loads the default values of all registered options."""
+        self.config = self._arg_parser.parse_args([], self.config)
+
+    def _parse_configuration_file(self, arguments: list[str]) -> None:
+        """Parse the arguments found in a configuration file into the namespace."""
+        self.config, parsed_args = self._arg_parser.parse_known_args(
+            arguments, self.config
+        )
+        unrecognized_options: list[str] = []
+        for opt in parsed_args:
+            if opt.startswith("--"):
+                unrecognized_options.append(opt[2:])
+        if unrecognized_options:
+            raise _UnrecognizedOptionError(options=unrecognized_options)
+
+    def _parse_command_line_configuration(
+        self, arguments: Sequence[str] | None = None
+    ) -> list[str]:
+        """Parse the arguments found on the command line into the namespace."""
+        arguments = sys.argv[1:] if arguments is None else arguments
+
+        self.config, parsed_args = self._arg_parser.parse_known_args(
+            arguments, self.config
+        )
+[?2004hroot@2c3883c96ad9:/app# cd /app && python -m pytest tests/config/ -v 2>&1
+[?2004l[1m===================================================================== test session starts ======================================================================[0m
+platform linux -- Python 3.9.25, pytest-7.4.4, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /app
+configfile: setup.cfg
+plugins: timeout-2.4.0
+[1mcollecting ... [0m[1mcollected 67 items                                                                                                                                             [0m
+
+tests/config/test_argparse_config.py::TestArgparseOptionsProviderMixin::test_logger_without_options [32mPASSED[0m[32m                                               [  1%][0m
+tests/config/test_argparse_config.py::TestArgparseOptionsProviderMixin::test_logger_commandline [32mPASSED[0m[32m                                                   [  2%][0m
+tests/config/test_argparse_config.py::TestArgparseOptionsProviderMixin::test_logger_rcfile [32mPASSED[0m[32m                                                        [  4%][0m
+tests/config/test_argparse_config.py::TestDeprecationOptions::test_new_names [32mPASSED[0m[32m                                                                      [  5%][0m
+tests/config/test_argparse_config.py::TestDeprecationOptions::test_old_names [32mPASSED[0m[32m                                                                      [  7%][0m
+tests/config/test_argparse_config.py::TestArguments::test_unrecognized_argument [32mPASSED[0m[32m                                                                   [  8%][0m
+tests/config/test_config.py::test_can_read_toml_env_variable [32mPASSED[0m[32m                                                                                      [ 10%][0m
+tests/config/test_config.py::test_unknown_message_id [32mPASSED[0m[32m                                                                                              [ 11%][0m
+tests/config/test_config.py::test_unknown_option_name [32mPASSED[0m[32m                                                                                             [ 13%][0m
+tests/config/test_config.py::test_unknown_short_option_name [32mPASSED[0m[32m                                                                                       [ 14%][0m
+tests/config/test_config.py::test_unknown_confidence [32mPASSED[0m[32m                                                                                              [ 16%][0m
+tests/config/test_config.py::test_unknown_yes_no [32mPASSED[0m[32m                                                                                                  [ 17%][0m
+tests/config/test_config.py::test_unknown_py_version [32mPASSED[0m[32m                                                                                              [ 19%][0m
+tests/config/test_config.py::test_short_verbose [32mPASSED[0m[32m                                                                                                   [ 20%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_load_configuration [32mPASSED[0m[32m                                                       [ 22%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_load_configuration_from_config [32mPASSED[0m[32m                                           [ 23%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_help_with_level [32mPASSED[0m[32m                                                          [ 25%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_register_options_provider_load_defaults [32mPASSED[0m[32m                                  [ 26%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_get_global_option [32mPASSED[0m[32m                                                        [ 28%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_read_config_file [32mPASSED[0m[32m                                                         [ 29%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_load_config_file [32mPASSED[0m[32m                                                         [ 31%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_load_command_line_configuration [32mPASSED[0m[32m                                          [ 32%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_cb_set_provider_option [32mPASSED[0m[32m                                                   [ 34%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_level_attribute [32mPASSED[0m[32m                                                          [ 35%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_no_default_in_optdict [32mPASSED[0m[32m                                                    [ 37%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_no_level_in_optdict [32mPASSED[0m[32m                                                      [ 38%][0m
+tests/config/test_find_default_config_files.py::test_pylintrc [32mPASSED[0m[32m                                                                                     [ 40%][0m
+tests/config/test_find_default_config_files.py::test_pylintrc_parentdir [32mPASSED[0m[32m                                                                           [ 41%][0m
+tests/config/test_find_default_config_files.py::test_pylintrc_parentdir_no_package [32mPASSED[0m[32m                                                                [ 43%][0m
+tests/config/test_find_default_config_files.py::test_verbose_output_no_config [32mPASSED[0m[32m                                                                     [ 44%][0m
+tests/config/test_find_default_config_files.py::test_toml_has_config[-False] [32mPASSED[0m[32m                                                                      [ 46%][0m
+tests/config/test_find_default_config_files.py::test_toml_has_config[(not toml valid)-False] [32mPASSED[0m[32m                                                      [ 47%][0m
+tests/config/test_find_default_config_files.py::test_toml_has_config[\n[build-system]\nrequires = ["setuptools ~= 58.0", "cython ~= 0.29.0"]\n-False] [32mPASSED[0m[32m [ 49%][0m
+tests/config/test_find_default_config_files.py::test_toml_has_config[\n[tool.pylint]\nmissing-member-hint = true\n-True] [32mPASSED[0m[32m                          [ 50%][0m
+tests/config/test_find_default_config_files.py::test_cfg_has_config[-False] [32mPASSED[0m[32m                                                                       [ 52%][0m
+tests/config/test_find_default_config_files.py::test_cfg_has_config[(not valid .cfg)-False] [32mPASSED[0m[32m                                                       [ 53%][0m
+tests/config/test_find_default_config_files.py::test_cfg_has_config[\n[metadata]\nname = pylint\n-False] [32mPASSED[0m[32m                                          [ 55%][0m
+tests/config/test_find_default_config_files.py::test_cfg_has_config[\n[metadata]\nname = pylint\n\n[pylint.messages control]\ndisable = logging-not-lazy,logging-format-interpolation\n-True] [32mPASSED[0m[32m [ 56%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/toml_with_unknown_option.toml] [32mPASSED[0m[32m                                [ 58%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/rich_types.toml] [32mPASSED[0m[32m                                              [ 59%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/toml_with_message_control.toml] [32mPASSED[0m[32m                               [ 61%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/toml_without_pylint.toml] [32mPASSED[0m[32m                                     [ 62%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/toml_with_enable.toml] [32mPASSED[0m[32m                                        [ 64%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/unknown_msgid/enable_unknown_msgid.toml] [32mPASSED[0m[32m                      [ 65%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/rich_types.toml] [32mPASSED[0m[32m                                   [ 67%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/valid_data_for_basic.toml] [32mPASSED[0m[32m                         [ 68%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/correct_basic_name_group.toml] [32mPASSED[0m[32m                     [ 70%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/valid_data_for_import.toml] [32mPASSED[0m[32m                        [ 71%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/correct_import_preferred_module.toml] [32mPASSED[0m[32m              [ 73%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/top_level_disable.toml] [32mPASSED[0m[32m                            [ 74%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_3181/toml_decode_error.toml] [32mPASSED[0m[32m                            [ 76%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_3181/top_level_list_of_disable.toml] [32mPASSED[0m[32m                    [ 77%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_3122/toml_with_missing_comma.toml] [32mPASSED[0m[32m                      [ 79%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4746/loaded_plugin_does_not_exists.toml] [32mPASSED[0m[32m                [ 80%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[ini/pylintrc_with_interpolation_error.ini] [32mPASSED[0m[32m                         [ 82%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[ini/pylintrc_with_missing_comma.ini] [32mPASSED[0m[32m                               [ 83%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[ini/pylintrc_with_message_control.ini] [32mPASSED[0m[32m                             [ 85%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[setup_cfg/setup_cfg_with_message_control.cfg] [32mPASSED[0m[32m                      [ 86%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[setup_cfg/issue_4272/option_in_wrong_section.cfg] [32mPASSED[0m[32m                  [ 88%][0m
+tests/config/unittest_config.py::test__regexp_validator_valid [32mPASSED[0m[32m                                                                                     [ 89%][0m
+tests/config/unittest_config.py::test__regexp_validator_invalid [32mPASSED[0m[32m                                                                                   [ 91%][0m
+tests/config/unittest_config.py::test__csv_validator_no_spaces [32mPASSED[0m[32m                                                                                    [ 92%][0m
+tests/config/unittest_config.py::test__csv_validator_spaces [32mPASSED[0m[32m                                                                                       [ 94%][0m
+tests/config/unittest_config.py::test__regexp_csv_validator_valid [32mPASSED[0m[32m                                                                                 [ 95%][0m
+tests/config/unittest_config.py::test__regexp_csv_validator_invalid [32mPASSED[0m[32m                                                                               [ 97%][0m
+tests/config/unittest_config.py::TestPyLinterOptionSetters::test_ignore_paths_with_value [32mPASSED[0m[32m                                                          [ 98%][0m
+tests/config/unittest_config.py::TestPyLinterOptionSetters::test_ignore_paths_with_no_value [32mPASSED[0m[32m                                                       [100%][0m
+
+[32m====================================================================== [32m[1m67 passed[0m[32m in 2.78s[0m[32m ======================================================================[0m
+[?2004hroot@2c3883c96ad9:/app# python -c "import sys; sys.exit(1)" 2>&1
+[?2004l[?2004hroot@2c3883c96ad9:/app# git diff tests/config/test_config.py
+[?2004l
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[7m--More--[K(END)[27m[KMost commands optionally preceded by integer argument k.  Defaults in brackets.
+Star (*) indicates argument becomes new default.
+-------------------------------------------------------------------------------
+<space>                 Display next k lines of text [current screen size]
+z                       Display next k lines of text [current screen size]*
+<return>                Display next k lines of text [1]*
+d or ctrl-D             Scroll k lines [current scroll size, initially 11]*
+q or Q or <interrupt>   Exit from more
+s                       Skip forward k lines of text [1]
+f                       Skip forward k screenfuls of text [1]
+b or ctrl-B             Skip backwards k screenfuls of text [1]
+'                       Go to place where previous search started
+=                       Display current line number
+/<regular expression>   Search for kth occurrence of regular expression [1]
+n                       Search for kth occurrence of last r.e [1]
+!<cmd> or :!<cmd>       Execute <cmd> in a subshell
+v                       Start up '/usr/bin/vi' at current line
+ctrl-L                  Redraw screen
+:n                      Go to kth next file [1]
+:p                      Go to kth previous file [1]
+:f                      Display current file name and line number
+.                       Repeat previous command
+-------------------------------------------------------------------------------
+[7m--More--[K(END)[27m[K
+...skipping 39 lines
+[?2004hroot@2c3883c96ad9:/app# ig/test_config.py | head -80
+[?2004lbash: ig/test_config.py: No such file or directory
+[?2004hroot@2c3883c96ad9:/app# cd /app && git diff tests/config/test_config.py
+[?2004l
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[7m--More--[K(END)[27m[KMost commands optionally preceded by integer argument k.  Defaults in brackets.
+Star (*) indicates argument becomes new default.
+-------------------------------------------------------------------------------
+<space>                 Display next k lines of text [current screen size]
+z                       Display next k lines of text [current screen size]*
+<return>                Display next k lines of text [1]*
+d or ctrl-D             Scroll k lines [current scroll size, initially 11]*
+q or Q or <interrupt>   Exit from more
+s                       Skip forward k lines of text [1]
+f                       Skip forward k screenfuls of text [1]
+b or ctrl-B             Skip backwards k screenfuls of text [1]
+'                       Go to place where previous search started
+=                       Display current line number
+/<regular expression>   Search for kth occurrence of regular expression [1]
+n                       Search for kth occurrence of last r.e [1]
+!<cmd> or :!<cmd>       Execute <cmd> in a subshell
+v                       Start up '/usr/bin/vi' at current line
+ctrl-L                  Redraw screen
+:n                      Go to kth next file [1]
+:p                      Go to kth previous file [1]
+:f                      Display current file name and line number
+.                       Repeat previous command
+-------------------------------------------------------------------------------
+[7m--More--[K(END)[27m[K
+...skipping 39 lines
+[?2004hroot@2c3883c96ad9:/app# ig/test_config.py | head -80
+[?2004lbash: ig/test_config.py: No such file or directory
+[?2004hroot@2c3883c96ad9:/app# qgit --no-pager diff tests/config/test_config.py
+[?2004lbash: qgit: command not found
+[?2004hroot@2c3883c96ad9:/app# git --no-pager show HEAD:tests/config/test_config.py | head -80
+[?2004l# Licensed under the GPL: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+# For details: https://github.com/PyCQA/pylint/blob/main/LICENSE
+# Copyright (c) https://github.com/PyCQA/pylint/blob/main/CONTRIBUTORS.txt
+
+from __future__ import annotations
+
+import os
+from pathlib import Path
+
+import pytest
+from pytest import CaptureFixture
+
+from pylint.config.exceptions import _UnrecognizedOptionError
+from pylint.lint import Run as LintRun
+from pylint.testutils._run import _Run as Run
+from pylint.testutils.configuration_test import run_using_a_configuration_file
+
+HERE = Path(__file__).parent.absolute()
+REGRTEST_DATA_DIR = HERE / ".." / "regrtest_data"
+EMPTY_MODULE = REGRTEST_DATA_DIR / "empty.py"
+
+
+def check_configuration_file_reader(
+    runner: LintRun,
+    expected_disabled: set[str] | None = None,
+    expected_jobs: int = 10,
+    expected_reports_truthey: bool = True,
+) -> None:
+    """Check that what we initialized the linter with what was expected."""
+    if expected_disabled is None:
+        # "logging-not-lazy" and "logging-format-interpolation"
+        expected_disabled = {"W1201", "W1202"}
+    for msgid in expected_disabled:
+        assert not runner.linter.is_message_enabled(msgid)
+    assert runner.linter.config.jobs == expected_jobs
+    assert bool(runner.linter.config.reports) == expected_reports_truthey
+
+
+def test_can_read_toml_env_variable(tmp_path: Path, file_to_lint_path: str) -> None:
+    """We can read and open a properly formatted toml file."""
+    config_file = tmp_path / "pyproject.toml"
+    config_file.write_text(
+        """
+[tool.pylint."messages control"]
+disable = "logging-not-lazy,logging-format-interpolation"
+jobs = "10"
+reports = "yes"
+"""
+    )
+    env_var = "tmp_path_env"
+    os.environ[env_var] = str(config_file)
+    mock_exit, _, runner = run_using_a_configuration_file(
+        f"${env_var}", file_to_lint_path
+    )
+    mock_exit.assert_called_once_with(0)
+    check_configuration_file_reader(runner)
+
+
+def test_unknown_message_id(capsys: CaptureFixture) -> None:
+    """Check that we correctly raise a message on an unknown id."""
+    Run([str(EMPTY_MODULE), "--disable=12345"], exit=False)
+    output = capsys.readouterr()
+    assert "Command line:1:0: E0012: Bad option value for --disable." in output.out
+
+
+def test_unknown_option_name(capsys: CaptureFixture) -> None:
+    """Check that we correctly raise a message on an unknown option."""
+    with pytest.raises(_UnrecognizedOptionError):
+        Run([str(EMPTY_MODULE), "--unknown-option=yes"], exit=False)
+    output = capsys.readouterr()
+    assert "E0015: Unrecognized option found: unknown-option=yes" in output.out
+
+
+def test_unknown_short_option_name(capsys: CaptureFixture) -> None:
+    """Check that we correctly raise a message on an unknown short option."""
+    with pytest.raises(_UnrecognizedOptionError):
+        Run([str(EMPTY_MODULE), "-Q"], exit=False)
+    output = capsys.readouterr()
+    assert "E0015: Unrecognized option found: Q" in output.out
+
+[?2004hroot@2c3883c96ad9:/app# cat > /tmp/test_exit.py << 'EOF'
+[?2004l[?2004h> import sys
+[?2004l[?2004h> class _UnrecognizedOptionError(SystemExit):
+[?2004l[?2004h>     def __init__(self, options: list[str], *args: object) -> None:
+[?2004l[?2004h>         self.options = options
+[?2004l[?2004h>         super().__init__(*args)
+[?2004l[?2004h> 
+[?2004l[?2004h> try:
+[?2004l[?2004h>     raise _UnrecognizedOptionError(options=["test"])
+[?2004l[?2004h> except _UnrecognizedOptionError as e:
+[?2004l[?2004h>     print(f"Caught: {e.options}")
+[?2004l[?2004h>     print(f"Code: {e.code}")
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@2c3883c96ad9:/app# python /tmp/test_exit.py
+[?2004lCaught: ['test']
+Code: None
+[?2004hroot@2c3883c96ad9:/app# cat pylint/config/exceptions.py
+[?2004l# Licensed under the GPL: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+# For details: https://github.com/PyCQA/pylint/blob/main/LICENSE
+# Copyright (c) https://github.com/PyCQA/pylint/blob/main/CONTRIBUTORS.txt
+
+from __future__ import annotations
+
+
+class UnrecognizedArgumentAction(Exception):
+    """Raised if an ArgumentManager instance tries to add an argument for which the action
+    is not recognized.
+    """
+
+
+class _UnrecognizedOptionError(Exception):
+    """Raised if an ArgumentManager instance tries to parse an option that is unknown."""
+
+    def __init__(self, options: list[str], *args: object) -> None:
+        self.options = options
+        super().__init__(*args)
+
+
+class ArgumentPreprocessingError(Exception):
+    """Raised if an error occurs during argument pre-processing."""
+[?2004hroot@2c3883c96ad9:/app# cat > pylint/config/exceptions.py << 'EOF'
+[?2004l[?2004h> # Licensed under the GPL: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+[?2004l[?2004h> # For details: https://github.com/PyCQA/pylint/blob/main/LICENSE
+[?2004l[?2004h> # Copyright (c) https://github.com/PyCQA/pylint/blob/main/CONTRIBUTORS.txt
+[?2004l[?2004h> 
+[?2004l[?2004h> from __future__ import annotations
+[?2004l[?2004h> 
+[?2004l[?2004h> 
+[?2004l[?2004h> class UnrecognizedArgumentAction(Exception):
+[?2004l[?2004h>     """Raised if an ArgumentManager instance tries to add an argument for which the action
+[?2004l[?2004h>     is not recognized.
+[?2004l[?2004h>     """
+[?2004l[?2004h> 
+[?2004l[?2004h> 
+[?2004l[?2004h> class _UnrecognizedOptionError(SystemExit):
+[?2004l[?2004h>     """Raised if an ArgumentManager instance tries to parse an option that is unknown."""
+[?2004l[?2004h> 
+[?2004l[?2004h>     def __init__(self, options: list[str], *args: object) -> None:
+[?2004l[?2004h>         self.options = options
+[?2004l[?2004h>         super().__init__(32, *args)
+[?2004l[?2004h> 
+[?2004l[?2004h> 
+[?2004l[?2004h> class ArgumentPreprocessingError(Exception):
+[?2004l[?2004h>     """Raised if an error occurs during argument pre-processing."""
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@2c3883c96ad9:/app# cd /app && python -m pytest tests/config/test_config.py -v -k "unknown_option" 2>&1
+[?2004l[1m===================================================================== test session starts ======================================================================[0m
+platform linux -- Python 3.9.25, pytest-7.4.4, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /app
+configfile: setup.cfg
+plugins: timeout-2.4.0
+[1mcollecting ... [0m[1mcollected 8 items / 7 deselected / 1 selected                                                                                                                  [0m
+
+tests/config/test_config.py::test_unknown_option_name [32mPASSED[0m[32m                                                                                             [100%][0m
+
+[32m=============================================================== [32m[1m1 passed[0m, [33m7 deselected[0m[32m in 0.05s[0m[32m ================================================================[0m
+[?2004hroot@2c3883c96ad9:/app# cd /app && python -m pytest tests/config/ -v 2>&1
+[?2004l[1m===================================================================== test session starts ======================================================================[0m
+platform linux -- Python 3.9.25, pytest-7.4.4, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /app
+configfile: setup.cfg
+plugins: timeout-2.4.0
+[1mcollecting ... [0m[1mcollected 67 items                                                                                                                                             [0m
+
+tests/config/test_argparse_config.py::TestArgparseOptionsProviderMixin::test_logger_without_options [32mPASSED[0m[32m                                               [  1%][0m
+tests/config/test_argparse_config.py::TestArgparseOptionsProviderMixin::test_logger_commandline [32mPASSED[0m[32m                                                   [  2%][0m
+tests/config/test_argparse_config.py::TestArgparseOptionsProviderMixin::test_logger_rcfile [32mPASSED[0m[32m                                                        [  4%][0m
+tests/config/test_argparse_config.py::TestDeprecationOptions::test_new_names [32mPASSED[0m[32m                                                                      [  5%][0m
+tests/config/test_argparse_config.py::TestDeprecationOptions::test_old_names [32mPASSED[0m[32m                                                                      [  7%][0m
+tests/config/test_argparse_config.py::TestArguments::test_unrecognized_argument [32mPASSED[0m[32m                                                                   [  8%][0m
+tests/config/test_config.py::test_can_read_toml_env_variable [32mPASSED[0m[32m                                                                                      [ 10%][0m
+tests/config/test_config.py::test_unknown_message_id [32mPASSED[0m[32m                                                                                              [ 11%][0m
+tests/config/test_config.py::test_unknown_option_name [32mPASSED[0m[32m                                                                                             [ 13%][0m
+tests/config/test_config.py::test_unknown_short_option_name [32mPASSED[0m[32m                                                                                       [ 14%][0m
+tests/config/test_config.py::test_unknown_confidence [32mPASSED[0m[32m                                                                                              [ 16%][0m
+tests/config/test_config.py::test_unknown_yes_no [32mPASSED[0m[32m                                                                                                  [ 17%][0m
+tests/config/test_config.py::test_unknown_py_version [32mPASSED[0m[32m                                                                                              [ 19%][0m
+tests/config/test_config.py::test_short_verbose [32mPASSED[0m[32m                                                                                                   [ 20%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_load_configuration [32mPASSED[0m[32m                                                       [ 22%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_load_configuration_from_config [32mPASSED[0m[32m                                           [ 23%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_help_with_level [32mPASSED[0m[32m                                                          [ 25%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_register_options_provider_load_defaults [32mPASSED[0m[32m                                  [ 26%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_get_global_option [32mPASSED[0m[32m                                                        [ 28%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_read_config_file [32mPASSED[0m[32m                                                         [ 29%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_load_config_file [32mPASSED[0m[32m                                                         [ 31%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_load_command_line_configuration [32mPASSED[0m[32m                                          [ 32%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_cb_set_provider_option [32mPASSED[0m[32m                                                   [ 34%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_level_attribute [32mPASSED[0m[32m                                                          [ 35%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_no_default_in_optdict [32mPASSED[0m[32m                                                    [ 37%][0m
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_no_level_in_optdict [32mPASSED[0m[32m                                                      [ 38%][0m
+tests/config/test_find_default_config_files.py::test_pylintrc [32mPASSED[0m[32m                                                                                     [ 40%][0m
+tests/config/test_find_default_config_files.py::test_pylintrc_parentdir [32mPASSED[0m[32m                                                                           [ 41%][0m
+tests/config/test_find_default_config_files.py::test_pylintrc_parentdir_no_package [32mPASSED[0m[32m                                                                [ 43%][0m
+tests/config/test_find_default_config_files.py::test_verbose_output_no_config [32mPASSED[0m[32m                                                                     [ 44%][0m
+tests/config/test_find_default_config_files.py::test_toml_has_config[-False] [32mPASSED[0m[32m                                                                      [ 46%][0m
+tests/config/test_find_default_config_files.py::test_toml_has_config[(not toml valid)-False] [32mPASSED[0m[32m                                                      [ 47%][0m
+tests/config/test_find_default_config_files.py::test_toml_has_config[\n[build-system]\nrequires = ["setuptools ~= 58.0", "cython ~= 0.29.0"]\n-False] [32mPASSED[0m[32m [ 49%][0m
+tests/config/test_find_default_config_files.py::test_toml_has_config[\n[tool.pylint]\nmissing-member-hint = true\n-True] [32mPASSED[0m[32m                          [ 50%][0m
+tests/config/test_find_default_config_files.py::test_cfg_has_config[-False] [32mPASSED[0m[32m                                                                       [ 52%][0m
+tests/config/test_find_default_config_files.py::test_cfg_has_config[(not valid .cfg)-False] [32mPASSED[0m[32m                                                       [ 53%][0m
+tests/config/test_find_default_config_files.py::test_cfg_has_config[\n[metadata]\nname = pylint\n-False] [32mPASSED[0m[32m                                          [ 55%][0m
+tests/config/test_find_default_config_files.py::test_cfg_has_config[\n[metadata]\nname = pylint\n\n[pylint.messages control]\ndisable = logging-not-lazy,logging-format-interpolation\n-True] [32mPASSED[0m[32m [ 56%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/toml_with_unknown_option.toml] [32mPASSED[0m[32m                                [ 58%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/rich_types.toml] [32mPASSED[0m[32m                                              [ 59%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/toml_with_message_control.toml] [32mPASSED[0m[32m                               [ 61%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/toml_without_pylint.toml] [32mPASSED[0m[32m                                     [ 62%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/toml_with_enable.toml] [32mPASSED[0m[32m                                        [ 64%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/unknown_msgid/enable_unknown_msgid.toml] [32mPASSED[0m[32m                      [ 65%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/rich_types.toml] [32mPASSED[0m[32m                                   [ 67%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/valid_data_for_basic.toml] [32mPASSED[0m[32m                         [ 68%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/correct_basic_name_group.toml] [32mPASSED[0m[32m                     [ 70%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/valid_data_for_import.toml] [32mPASSED[0m[32m                        [ 71%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/correct_import_preferred_module.toml] [32mPASSED[0m[32m              [ 73%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/top_level_disable.toml] [32mPASSED[0m[32m                            [ 74%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_3181/toml_decode_error.toml] [32mPASSED[0m[32m                            [ 76%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_3181/top_level_list_of_disable.toml] [32mPASSED[0m[32m                    [ 77%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_3122/toml_with_missing_comma.toml] [32mPASSED[0m[32m                      [ 79%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4746/loaded_plugin_does_not_exists.toml] [32mPASSED[0m[32m                [ 80%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[ini/pylintrc_with_interpolation_error.ini] [32mPASSED[0m[32m                         [ 82%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[ini/pylintrc_with_missing_comma.ini] [32mPASSED[0m[32m                               [ 83%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[ini/pylintrc_with_message_control.ini] [32mPASSED[0m[32m                             [ 85%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[setup_cfg/setup_cfg_with_message_control.cfg] [32mPASSED[0m[32m                      [ 86%][0m
+tests/config/test_functional_config_loading.py::test_functional_config_loading[setup_cfg/issue_4272/option_in_wrong_section.cfg] [32mPASSED[0m[32m                  [ 88%][0m
+tests/config/unittest_config.py::test__regexp_validator_valid [32mPASSED[0m[32m                                                                                     [ 89%][0m
+tests/config/unittest_config.py::test__regexp_validator_invalid [32mPASSED[0m[32m                                                                                   [ 91%][0m
+tests/config/unittest_config.py::test__csv_validator_no_spaces [32mPASSED[0m[32m                                                                                    [ 92%][0m
+tests/config/unittest_config.py::test__csv_validator_spaces [32mPASSED[0m[32m                                                                                       [ 94%][0m
+tests/config/unittest_config.py::test__regexp_csv_validator_valid [32mPASSED[0m[32m                                                                                 [ 95%][0m
+tests/config/unittest_config.py::test__regexp_csv_validator_invalid [32mPASSED[0m[32m                                                                               [ 97%][0m
+tests/config/unittest_config.py::TestPyLinterOptionSetters::test_ignore_paths_with_value [32mPASSED[0m[32m                                                          [ 98%][0m
+tests/config/unittest_config.py::TestPyLinterOptionSetters::test_ignore_paths_with_no_value [32mPASSED[0m[32m                                                       [100%][0m
+
+[32m====================================================================== [32m[1m67 passed[0m[32m in 1.71s[0m[32m ======================================================================[0m
+[?2004hroot@2c3883c96ad9:/app# cd /app && python -m pylint -Q 2>&1
+[?2004lProblem importing module utils.py: Unable to find module for /app/pylint/checkers/utils.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module threading_checker.py: Unable to find module for /app/pylint/checkers/threading_checker.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module lambda_expressions.py: Unable to find module for /app/pylint/checkers/lambda_expressions.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module exceptions.py: Unable to find module for /app/pylint/checkers/exceptions.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module unsupported_version.py: Unable to find module for /app/pylint/checkers/unsupported_version.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module strings.py: Unable to find module for /app/pylint/checkers/strings.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module spelling.py: Unable to find module for /app/pylint/checkers/spelling.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module stdlib.py: Unable to find module for /app/pylint/checkers/stdlib.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module refactoring: Unable to find module for /app/pylint/checkers/refactoring in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module base: Unable to find module for /app/pylint/checkers/base in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module design_analysis.py: Unable to find module for /app/pylint/checkers/design_analysis.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module base_checker.py: Unable to find module for /app/pylint/checkers/base_checker.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module modified_iterating_checker.py: Unable to find module for /app/pylint/checkers/modified_iterating_checker.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module variables.py: Unable to find module for /app/pylint/checkers/variables.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module non_ascii_names.py: Unable to find module for /app/pylint/checkers/non_ascii_names.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module logging.py: Unable to find module for /app/pylint/checkers/logging.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module format.py: Unable to find module for /app/pylint/checkers/format.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module misc.py: Unable to find module for /app/pylint/checkers/misc.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module unicode.py: Unable to find module for /app/pylint/checkers/unicode.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module imports.py: Unable to find module for /app/pylint/checkers/imports.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module typecheck.py: Unable to find module for /app/pylint/checkers/typecheck.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module async.py: Unable to find module for /app/pylint/checkers/async.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module classes: Unable to find module for /app/pylint/checkers/classes in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module newstyle.py: Unable to find module for /app/pylint/checkers/newstyle.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module ellipsis_checker.py: Unable to find module for /app/pylint/checkers/ellipsis_checker.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module mapreduce_checker.py: Unable to find module for /app/pylint/checkers/mapreduce_checker.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module deprecated.py: Unable to find module for /app/pylint/checkers/deprecated.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module similar.py: Unable to find module for /app/pylint/checkers/similar.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module dunder_methods.py: Unable to find module for /app/pylint/checkers/dunder_methods.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module raw_metrics.py: Unable to find module for /app/pylint/checkers/raw_metrics.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module base_reporter.py: Unable to find module for /app/pylint/reporters/base_reporter.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module collecting_reporter.py: Unable to find module for /app/pylint/reporters/collecting_reporter.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module ureports: Unable to find module for /app/pylint/reporters/ureports in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module reports_handler_mix_in.py: Unable to find module for /app/pylint/reporters/reports_handler_mix_in.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module multi_reporter.py: Unable to find module for /app/pylint/reporters/multi_reporter.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module text.py: Unable to find module for /app/pylint/reporters/text.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Problem importing module json_reporter.py: Unable to find module for /app/pylint/reporters/json_reporter.py in /usr/local/lib/python39.zip, 
+/usr/local/lib/python3.9, 
+/usr/local/lib/python3.9/lib-dynload, 
+/usr/local/lib/python3.9/site-packages
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/runpy.py", line 197, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/local/lib/python3.9/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/app/pylint/__main__.py", line 10, in <module>
+    pylint.run_pylint()
+  File "/app/pylint/__init__.py", line 25, in run_pylint
+    PylintRun(argv or sys.argv[1:])
+  File "/app/pylint/lint/run.py", line 133, in __init__
+    linter.enable("c-extension-no-member")
+  File "/app/pylint/lint/pylinter.py", line 1531, in enable
+    self._set_msg_status(
+  File "/app/pylint/lint/pylinter.py", line 1455, in _set_msg_status
+    message_definitions = self._get_messages_to_set(msgid, enable, ignore_unknown)
+  File "/app/pylint/lint/pylinter.py", line 1438, in _get_messages_to_set
+    message_definitions = self.msgs_store.get_message_definitions(msgid)
+  File "/app/pylint/message/message_definition_store.py", line 68, in get_message_definitions
+    for m in self.message_id_store.get_active_msgids(msgid_or_symbol)
+  File "/app/pylint/message/message_id_store.py", line 132, in get_active_msgids
+    raise UnknownMessageError(error_msg)
+pylint.exceptions.UnknownMessageError: No such message id or symbol 'c-extension-no-member'.
+[?2004hroot@2c3883c96ad9:/app# cd /app && PYTHONPATH=/app python -c "
+[?2004l[?2004h> from pylint.config.exceptions import _UnrecognizedOptionError
+[?2004l[?2004h> try:
+[?2004l[?2004h>     raise _UnrecognizedOptionError(options=['test'])
+[?2004l[?2004h> except _UnrecognizedOptionError as e:
+[?2004l[?2004h>     print('Caught _UnrecognizedOptionError:', e.options)
+[?2004l[?2004h>     print('Code:', e.code)
+[?2004l[?2004h> print('Program continues after catch')
+[?2004l[?2004h> "
+[?2004lCaught _UnrecognizedOptionError: ['test']
+Code: 32
+Program continues after catch
+[?2004hroot@2c3883c96ad9:/app# cd /app && PYTHONPATH=/app python -c "
+[?2004l[?2004h> from pylint.config.exceptions import _UnrecognizedOptionError
+[?2004l[?2004h> print('Before raise')
+[?2004l[?2004h> try:
+[?2004l[?2004h>     raise _UnrecognizedOptionError(options=['test'])
+[?2004l[?2004h> except _UnrecognizedOptionError as e:
+[?2004l[?2004h>     import sys
+[?2004l[?2004h>     print('Caught _UnrecognizedOptionError:', e.options, file=sys.stderr)
+[?2004l[?2004h>     print('Code:', e.code, file=sys.stderr)
+[?2004l[?2004h> print('Program continues after catch')
+[?2004l[?2004h> " 2>&1
+[?2004lBefore raise
+Caught _UnrecognizedOptionError: ['test']
+Code: 32
+Program continues after catch
+[?2004hroot@2c3883c96ad9:/app# 
+[?2004l[?2004hroot@2c3883c96ad9:/app# cd /app && PYTHONPATH=/app python -c "
+[?2004l[?2004h> from pylint.config.exceptions import _UnrecognizedOptionError
+[?2004l[?2004h> raise _UnrecognizedOptionError(options=['test'])
+[?2004l[?2004h> " 2>&1
+[?2004lecho "Exit code: $?"
+[?2004hroot@2c3883c96ad9:/app# echo "Exit code: $?"
+[?2004lExit code: 32
+[?2004hroot@2c3883c96ad9:/app# cd /app && PYTHONPATH=/app python -c "from pylint.config.exceptions import _UnrecognizedOptionError; raise _UnrecognizedOptionError(options=['test'])" 2>&1; echo "Exit code: $?"
+[?2004lExit code: 32
+[?2004hroot@2c3883c96ad9:/app# cd /app && python -m pytest tests/config/ tests/lint/ -v 2>&1 | tail -50
+[?2004l============================= test session starts ==============================
+platform linux -- Python 3.9.25, pytest-7.4.4, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /app
+configfile: setup.cfg
+plugins: timeout-2.4.0
+collecting ... collected 122 items / 1 error
+
+==================================== ERRORS ====================================
+_________________ ERROR collecting tests/lint/test_pylinter.py _________________
+ImportError while importing test module '/app/tests/lint/test_pylinter.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/local/lib/python3.9/importlib/__init__.py:127: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests/lint/test_pylinter.py:10: in <module>
+    from py._path.local import LocalPath  # type: ignore[import]
+E   ModuleNotFoundError: No module named 'py._path'; 'py' is not a package
+=========================== short test summary info ============================
+ERROR tests/lint/test_pylinter.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+=============================== 1 error in 0.26s ===============================
+[?2004hroot@2c3883c96ad9:/app# cd /app && python -m pytest tests/config/ -v 2>&1 | grep -E "(PASSED|FAILED|ERROR|passed|failed|error)"
+[?2004ltests/config/test_argparse_config.py::TestArgparseOptionsProviderMixin::test_logger_without_options PASSED [  1%]
+tests/config/test_argparse_config.py::TestArgparseOptionsProviderMixin::test_logger_commandline PASSED [  2%]
+tests/config/test_argparse_config.py::TestArgparseOptionsProviderMixin::test_logger_rcfile PASSED [  4%]
+tests/config/test_argparse_config.py::TestDeprecationOptions::test_new_names PASSED [  5%]
+tests/config/test_argparse_config.py::TestDeprecationOptions::test_old_names PASSED [  7%]
+tests/config/test_argparse_config.py::TestArguments::test_unrecognized_argument PASSED [  8%]
+tests/config/test_config.py::test_can_read_toml_env_variable PASSED      [ 10%]
+tests/config/test_config.py::test_unknown_message_id PASSED              [ 11%]
+tests/config/test_config.py::test_unknown_option_name PASSED             [ 13%]
+tests/config/test_config.py::test_unknown_short_option_name PASSED       [ 14%]
+tests/config/test_config.py::test_unknown_confidence PASSED              [ 16%]
+tests/config/test_config.py::test_unknown_yes_no PASSED                  [ 17%]
+tests/config/test_config.py::test_unknown_py_version PASSED              [ 19%]
+tests/config/test_config.py::test_short_verbose PASSED                   [ 20%]
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_load_configuration PASSED [ 22%]
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_load_configuration_from_config PASSED [ 23%]
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_help_with_level PASSED [ 25%]
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_register_options_provider_load_defaults PASSED [ 26%]
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_get_global_option PASSED [ 28%]
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_read_config_file PASSED [ 29%]
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_load_config_file PASSED [ 31%]
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_load_command_line_configuration PASSED [ 32%]
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_cb_set_provider_option PASSED [ 34%]
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_level_attribute PASSED [ 35%]
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_no_default_in_optdict PASSED [ 37%]
+tests/config/test_deprecations.py::TestDeprecationArgumentsManager::test_no_level_in_optdict PASSED [ 38%]
+tests/config/test_find_default_config_files.py::test_pylintrc PASSED     [ 40%]
+tests/config/test_find_default_config_files.py::test_pylintrc_parentdir PASSED [ 41%]
+tests/config/test_find_default_config_files.py::test_pylintrc_parentdir_no_package PASSED [ 43%]
+tests/config/test_find_default_config_files.py::test_verbose_output_no_config PASSED [ 44%]
+tests/config/test_find_default_config_files.py::test_toml_has_config[-False] PASSED [ 46%]
+tests/config/test_find_default_config_files.py::test_toml_has_config[(not toml valid)-False] PASSED [ 47%]
+tests/config/test_find_default_config_files.py::test_toml_has_config[\n[build-system]\nrequires = ["setuptools ~= 58.0", "cython ~= 0.29.0"]\n-False] PASSED [ 49%]
+tests/config/test_find_default_config_files.py::test_toml_has_config[\n[tool.pylint]\nmissing-member-hint = true\n-True] PASSED [ 50%]
+tests/config/test_find_default_config_files.py::test_cfg_has_config[-False] PASSED [ 52%]
+tests/config/test_find_default_config_files.py::test_cfg_has_config[(not valid .cfg)-False] PASSED [ 53%]
+tests/config/test_find_default_config_files.py::test_cfg_has_config[\n[metadata]\nname = pylint\n-False] PASSED [ 55%]
+tests/config/test_find_default_config_files.py::test_cfg_has_config[\n[metadata]\nname = pylint\n\n[pylint.messages control]\ndisable = logging-not-lazy,logging-format-interpolation\n-True] PASSED [ 56%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/toml_with_unknown_option.toml] PASSED [ 58%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/rich_types.toml] PASSED [ 59%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/toml_with_message_control.toml] PASSED [ 61%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/toml_without_pylint.toml] PASSED [ 62%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/toml_with_enable.toml] PASSED [ 64%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/unknown_msgid/enable_unknown_msgid.toml] PASSED [ 65%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/rich_types.toml] PASSED [ 67%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/valid_data_for_basic.toml] PASSED [ 68%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/correct_basic_name_group.toml] PASSED [ 70%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/valid_data_for_import.toml] PASSED [ 71%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/correct_import_preferred_module.toml] PASSED [ 73%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/top_level_disable.toml] PASSED [ 74%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_3181/toml_decode_error.toml] PASSED [ 76%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_3181/top_level_list_of_disable.toml] PASSED [ 77%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_3122/toml_with_missing_comma.toml] PASSED [ 79%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4746/loaded_plugin_does_not_exists.toml] PASSED [ 80%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[ini/pylintrc_with_interpolation_error.ini] PASSED [ 82%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[ini/pylintrc_with_missing_comma.ini] PASSED [ 83%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[ini/pylintrc_with_message_control.ini] PASSED [ 85%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[setup_cfg/setup_cfg_with_message_control.cfg] PASSED [ 86%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[setup_cfg/issue_4272/option_in_wrong_section.cfg] PASSED [ 88%]
+tests/config/unittest_config.py::test__regexp_validator_valid PASSED     [ 89%]
+tests/config/unittest_config.py::test__regexp_validator_invalid PASSED   [ 91%]
+tests/config/unittest_config.py::test__csv_validator_no_spaces PASSED    [ 92%]
+tests/config/unittest_config.py::test__csv_validator_spaces PASSED       [ 94%]
+tests/config/unittest_config.py::test__regexp_csv_validator_valid PASSED [ 95%]
+tests/config/unittest_config.py::test__regexp_csv_validator_invalid PASSED [ 97%]
+tests/config/unittest_config.py::TestPyLinterOptionSetters::test_ignore_paths_with_value PASSED [ 98%]
+tests/config/unittest_config.py::TestPyLinterOptionSetters::test_ignore_paths_with_no_value PASSED [100%]
+============================== 67 passed in 1.49s ==============================
+[?2004hroot@2c3883c96ad9:/app# cd /app && python -m pytest tests/ -v --ignore=tests/lint/test_pylinter.py -x 2>&1 | tail -30
+[?2004l============================= test session starts ==============================
+platform linux -- Python 3.9.25, pytest-7.4.4, pluggy-1.6.0 -- /usr/local/bin/python
+cachedir: .pytest_cache
+rootdir: /app
+configfile: setup.cfg
+plugins: timeout-2.4.0
+collecting ... collected 840 items / 1 error
+
+==================================== ERRORS ====================================
+________________ ERROR collecting tests/test_pylint_runners.py _________________
+ImportError while importing test module '/app/tests/test_pylint_runners.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/local/lib/python3.9/importlib/__init__.py:127: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests/test_pylint_runners.py:14: in <module>
+    from py._path.local import LocalPath  # type: ignore[import]
+E   ModuleNotFoundError: No module named 'py._path'; 'py' is not a package
+=========================== short test summary info ============================
+ERROR tests/test_pylint_runners.py
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+=============================== 1 error in 0.61s ===============================
+[?2004hroot@2c3883c96ad9:/app# cd /app && python -m pytest tests/config/ tests/functional/ -v 2>&1 | tail -40
+[?2004ltests/config/test_find_default_config_files.py::test_toml_has_config[(not toml valid)-False] PASSED [ 46%]
+tests/config/test_find_default_config_files.py::test_toml_has_config[\n[build-system]\nrequires = ["setuptools ~= 58.0", "cython ~= 0.29.0"]\n-False] PASSED [ 47%]
+tests/config/test_find_default_config_files.py::test_toml_has_config[\n[tool.pylint]\nmissing-member-hint = true\n-True] PASSED [ 49%]
+tests/config/test_find_default_config_files.py::test_cfg_has_config[-False] PASSED [ 50%]
+tests/config/test_find_default_config_files.py::test_cfg_has_config[(not valid .cfg)-False] PASSED [ 52%]
+tests/config/test_find_default_config_files.py::test_cfg_has_config[\n[metadata]\nname = pylint\n-False] PASSED [ 53%]
+tests/config/test_find_default_config_files.py::test_cfg_has_config[\n[metadata]\nname = pylint\n\n[pylint.messages control]\ndisable = logging-not-lazy,logging-format-interpolation\n-True] PASSED [ 55%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/toml_with_unknown_option.toml] PASSED [ 56%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/rich_types.toml] PASSED [ 57%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/toml_with_message_control.toml] PASSED [ 59%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/toml_without_pylint.toml] PASSED [ 60%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/toml_with_enable.toml] PASSED [ 62%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/unknown_msgid/enable_unknown_msgid.toml] PASSED [ 63%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/rich_types.toml] PASSED [ 65%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/valid_data_for_basic.toml] PASSED [ 66%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/correct_basic_name_group.toml] PASSED [ 68%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/valid_data_for_import.toml] PASSED [ 69%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/correct_import_preferred_module.toml] PASSED [ 71%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4580/top_level_disable.toml] PASSED [ 72%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_3181/toml_decode_error.toml] PASSED [ 73%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_3181/top_level_list_of_disable.toml] PASSED [ 75%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_3122/toml_with_missing_comma.toml] PASSED [ 76%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[toml/issue_4746/loaded_plugin_does_not_exists.toml] PASSED [ 78%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[ini/pylintrc_with_interpolation_error.ini] PASSED [ 79%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[ini/pylintrc_with_missing_comma.ini] PASSED [ 81%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[ini/pylintrc_with_message_control.ini] PASSED [ 82%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[setup_cfg/setup_cfg_with_message_control.cfg] PASSED [ 84%]
+tests/config/test_functional_config_loading.py::test_functional_config_loading[setup_cfg/issue_4272/option_in_wrong_section.cfg] PASSED [ 85%]
+tests/config/unittest_config.py::test__regexp_validator_valid PASSED     [ 86%]
+tests/config/unittest_config.py::test__regexp_validator_invalid PASSED   [ 88%]
+tests/config/unittest_config.py::test__csv_validator_no_spaces PASSED    [ 89%]
+tests/config/unittest_config.py::test__csv_validator_spaces PASSED       [ 91%]
+tests/config/unittest_config.py::test__regexp_csv_validator_valid PASSED [ 92%]
+tests/config/unittest_config.py::test__regexp_csv_validator_invalid PASSED [ 94%]
+tests/config/unittest_config.py::TestPyLinterOptionSetters::test_ignore_paths_with_value PASSED [ 95%]
+tests/config/unittest_config.py::TestPyLinterOptionSetters::test_ignore_paths_with_no_value PASSED [ 97%]
+tests/functional/r/redundant_unittest_assert.py::Tests::test_something SKIPPED [ 98%]
+tests/functional/r/redundant_unittest_assert.py::RegressionWithArgs::test SKIPPED [100%]
+
+======================== 67 passed, 2 skipped in 2.35s =========================
+[?2004hroot@2c3883c96ad9:/app# cat pylint/config/exceptions.py
+[?2004l# Licensed under the GPL: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+# For details: https://github.com/PyCQA/pylint/blob/main/LICENSE
+# Copyright (c) https://github.com/PyCQA/pylint/blob/main/CONTRIBUTORS.txt
+
+from __future__ import annotations
+
+
+class UnrecognizedArgumentAction(Exception):
+    """Raised if an ArgumentManager instance tries to add an argument for which the action
+    is not recognized.
+    """
+
+
+class _UnrecognizedOptionError(SystemExit):
+    """Raised if an ArgumentManager instance tries to parse an option that is unknown."""
+
+    def __init__(self, options: list[str], *args: object) -> None:
+        self.options = options
+        super().__init__(32, *args)
+
+
+class ArgumentPreprocessingError(Exception):
+    """Raised if an error occurs during argument pre-processing."""
+[?2004hroot@2c3883c96ad9:/app# 

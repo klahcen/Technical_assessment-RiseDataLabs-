@@ -1,0 +1,12 @@
+{
+    "task": {
+        "path": "."
+    },
+    "trial_name": "harbor_tasks__ubZ7bLM",
+    "trials_dir": "jobs/2026-07-16__18-43-00",
+    "agent": {
+        "name": "terminus-2",
+        "model_name": "deepseek/deepseek-chat"
+    },
+    "job_id": "9f0ac7a2-4a32-452c-9d7d-82a9c75a6ba6"
+}

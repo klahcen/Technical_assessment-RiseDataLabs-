@@ -1,0 +1,39 @@
+{
+    "id": "9f0ac7a2-4a32-452c-9d7d-82a9c75a6ba6",
+    "started_at": "2026-07-16T18:43:00.684796",
+    "updated_at": "2026-07-16T18:47:50.364893",
+    "finished_at": "2026-07-16T18:47:50.364893",
+    "n_total_trials": 1,
+    "stats": {
+        "n_completed_trials": 1,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "terminus-2__deepseek-chat__adhoc": {
+                "n_trials": 1,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.0
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "harbor_tasks__ubZ7bLM"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": 929583,
+        "n_cache_tokens": 900992,
+        "n_output_tokens": 14998,
+        "cost_usd": 0.010724957600000001
+    }
+}
