@@ -1,0 +1,7 @@
+{
+    "tasks": [
+        {
+            "path": "swebench-pylint-unrecognized-option"
+        }
+    ]
+}

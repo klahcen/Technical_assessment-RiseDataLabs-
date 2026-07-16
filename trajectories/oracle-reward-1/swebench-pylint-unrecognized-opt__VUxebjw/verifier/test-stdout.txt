@@ -1,0 +1,13 @@
+============================= test session starts ==============================
+platform linux -- Python 3.9.25, pytest-7.4.4, pluggy-1.6.0
+rootdir: /tests
+plugins: timeout-2.4.0
+collected 2 items
+
+../tests/test_outputs.py ..                                              [100%]
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED ../tests/test_outputs.py::test_fail_to_pass_tests_now_pass
+PASSED ../tests/test_outputs.py::test_pass_to_pass_tests_still_pass
+============================== 2 passed in 3.13s ===============================

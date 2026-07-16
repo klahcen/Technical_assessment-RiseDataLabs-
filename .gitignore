@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+
+# OS
+.DS_Store
+
+# Secrets
+.env
+.env.*
+
+# Harbor local outputs (keep trajectories/ in repo)
+jobs/
+dist.tar.gz

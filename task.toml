@@ -1,0 +1,36 @@
+schema_version = "1.3"
+artifacts = []
+
+[task]
+name = "local/swebench-pylint-unrecognized-option"
+description = "Fix pylint unrecognized option traceback (SWE-bench Lite pylint-dev__pylint-6506)"
+keywords = ["swe-bench", "pylint", "cli", "python"]
+[[task.authors]]
+name = "klahcen"
+email = "aaloch707@gmail.com"
+
+[metadata]
+author_name = "klahcen"
+author_email = "aaloch707@gmail.com"
+difficulty_explanation = "Small one-file change: stop raising _UnrecognizedOptionError for unknown CLI flags and instead exit via argparse with a usage message. Requires locating config initialization and matching the updated SystemExit/stderr expectations."
+category = "software-engineering"
+tags = ["swe-bench", "python", "pylint"]
+
+[verifier]
+timeout_sec = 300.0
+collect = []
+
+[verifier.env]
+
+[agent]
+timeout_sec = 900.0
+
+[environment]
+network_mode = "public"
+build_timeout_sec = 900.0
+os = "linux"
+mcp_servers = []
+
+[environment.env]
+
+[solution.env]

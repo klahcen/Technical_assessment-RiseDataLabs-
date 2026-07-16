@@ -1,0 +1,12 @@
+{
+    "task": {
+        "path": "swebench-pylint-unrecognized-option"
+    },
+    "trial_name": "swebench-pylint-unrecognized-opt__94zj4f8",
+    "trials_dir": "jobs/2026-07-16__17-44-44",
+    "agent": {
+        "name": "terminus-2",
+        "model_name": "deepseek/deepseek-chat"
+    },
+    "job_id": "e3d4b090-58f4-4f3d-a893-092bc15bd918"
+}
